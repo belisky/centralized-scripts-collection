@@ -16,28 +16,29 @@ const SignPad = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center">
       <div style={{ border: "2px solid black", width: 300, height: 150 }}>
         <SignatureCanvas
           canvasProps={{ width: 300, height: 150, className: "sigCanvas" }}
           ref={signRef}
         />
       </div>
+      <div className="flex w-2/4">
+        <button
+          className="bg-red-400 text-white w-1/2 py-2 px-1"
+          onClick={handleClear}
+        >
+          Clear
+        </button>
+        <button
+          className="bg-green-500 text-white w-1/2 py-2 px-1"
+          onClick={handleGenerate}
+        >
+          Preview
+        </button>
+      </div>
 
-      <br></br>
-      <button style={{ height: "30px", width: "60px" }} onClick={handleClear}>
-        Clear
-      </button>
-      <button
-        style={{ height: "30px", width: "60px" }}
-        onClick={handleGenerate}
-      >
-        Save
-      </button>
-
-      <br />
-      <br />
-      <img src={url} />
+      <img className="w-20 h-10 flex" src={url} />
     </div>
   );
 };

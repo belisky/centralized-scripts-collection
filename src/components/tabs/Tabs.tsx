@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BsFillClipboard2CheckFill,
   BsTag,
@@ -6,6 +6,7 @@ import {
   BsChevronRight,
 } from "react-icons/bs";
 import { BiLibrary } from "react-icons/bi";
+import CollectScripts from "../collect_scripts/CollectScripts";
 
 interface TabProps {
   onChangeTab: (props: number) => void;
@@ -13,12 +14,25 @@ interface TabProps {
 }
 
 const Tabs = ({ onChangeTab, tab }: TabProps) => {
+  const [openscriptCollection, setOpenScriptCollection] = useState(false);
+  const openCollectScript = () => {
+    setOpenScriptCollection((prev) => !prev);
+  };
   return (
     <div className="flex flex-col">
       <div className="flex flex-col ml-auto flex-auto justify-end ">
-        <button className="flex-auto mb-5 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded justify-self-end">
+        <button
+          onClick={openCollectScript}
+          className="flex-auto mb-5 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded justify-self-end"
+        >
           {tab === 1 ? "Update" : "Collect"}
         </button>
+        {tab === 2 && (
+          <CollectScripts
+            openscriptCollection={openscriptCollection}
+            openCollectScript={openCollectScript}
+          />
+        )}
         <span className="flex flex-row items-center">
           <p className="text-sm">1-50 of 2000</p>
           <BsChevronLeft className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-900" />
