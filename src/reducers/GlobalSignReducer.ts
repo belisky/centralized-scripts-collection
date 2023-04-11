@@ -24,11 +24,14 @@ export const signatureSlice = createSlice({
       // immutable state based off those changes
       state.signature.push(action.payload);
     },
+    removeSigned: (state) => {
+      state.signature = [];
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addSigned } = signatureSlice.actions;
+export const { addSigned, removeSigned } = signatureSlice.actions;
 export const selectSignatures = (state: RootState) => state.signature.signature;
 
 export default signatureSlice.reducer;

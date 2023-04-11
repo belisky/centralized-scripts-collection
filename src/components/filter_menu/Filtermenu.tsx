@@ -8,11 +8,18 @@ import "react-datepicker/dist/react-datepicker.css";
 interface FilterMenuProps {
   openfilter: boolean;
   openFilterMenu: () => void;
+  filterPapersByDate: (dt: Date) => void;
+  filterdate: Date;
 }
 interface KeyVal {
   name: string;
 }
-const Filtermenu = ({ openfilter, openFilterMenu }: FilterMenuProps) => {
+const Filtermenu = ({
+  openfilter,
+  openFilterMenu,
+  filterdate,
+  filterPapersByDate,
+}: FilterMenuProps) => {
   const semester: KeyVal[] = [
     { name: "First-Sem" },
     { name: "Second-Sem" },
@@ -45,7 +52,12 @@ const Filtermenu = ({ openfilter, openFilterMenu }: FilterMenuProps) => {
   const [selectedsession, setSelectedSession] = useState("");
   const sessionLegend = "Session";
 
-  const [pickdate, setPickDate] = useState<any>(new Date());
+  const [pickdate, setPickDate] = useState<any>(filterdate);
+  const onClickPickDate = (dt: Date) => {
+    setPickDate(dt);
+    filterPapersByDate(dt);
+    console.log(dt);
+  };
 
   return (
     <div
@@ -67,7 +79,8 @@ const Filtermenu = ({ openfilter, openFilterMenu }: FilterMenuProps) => {
           <span className="mr-2">Date</span>
           <DatePicker
             selected={pickdate}
-            onChange={(date: any) => setPickDate(date)}
+            onChange={(date: any) => onClickPickDate(date)}
+            dateFormat="MM/dd/yyyy"
           />
         </div>
         <Dropdown

@@ -6,9 +6,16 @@ import Filtermenu from "../filter_menu/Filtermenu";
 interface CustomSearchProps {
   setFilter: (str: string) => void;
   filter: string;
+  filterdate: Date;
+  filterPapersByDate: (dt: Date) => void;
 }
 
-const CustomSearch = ({ filter, setFilter }: CustomSearchProps) => {
+const CustomSearch = ({
+  filter,
+  setFilter,
+  filterdate,
+  filterPapersByDate,
+}: CustomSearchProps) => {
   // const [searchParam, setSearchParam] = useState("");
   const onChangeSearchParam = (event: any) => {
     const query = event?.target.value;
@@ -43,7 +50,12 @@ const CustomSearch = ({ filter, setFilter }: CustomSearchProps) => {
         />
       </div>
       {openfilter && (
-        <Filtermenu openfilter={openfilter} openFilterMenu={openFilterMenu} />
+        <Filtermenu
+          openfilter={openfilter}
+          openFilterMenu={openFilterMenu}
+          filterPapersByDate={filterPapersByDate}
+          filterdate={filterdate}
+        />
       )}
     </>
   );

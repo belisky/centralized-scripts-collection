@@ -13,6 +13,7 @@ const GET_SCRIPTS = gql`
       collectedDate
       class
       collected
+      date
     }
   }
 `;

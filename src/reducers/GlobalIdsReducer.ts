@@ -24,11 +24,14 @@ export const idSlice = createSlice({
         state.ids.push(action.payload);
       }
     },
+    removeIds: (state) => {
+      state.ids = [];
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addIds } = idSlice.actions;
+export const { addIds, removeIds } = idSlice.actions;
 export const selectIds = (state: RootState) => state.id.ids;
 
 export default idSlice.reducer;

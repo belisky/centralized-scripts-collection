@@ -38,10 +38,20 @@ const UpdateScripts = ({ scripts, setTab, tab }: UpdateScriptsProps) => {
 
   // const updateEnvelopeNumbers=(id:number)
 
-  const [filter, setFilter] = useState("");
+  const [filterstring, setFilterString] = useState("");
+  const [filterdate, setFilterDate] = useState(new Date());
 
-  const filterPapers = (filterParam: string) => {
-    setFilter(filterParam);
+  const filterPapersByDate = (dateString: Date) => {
+    setFilterDate(dateString);
+    console.log(dateString);
+    const searchList = scripts.filter((paper) => {
+      return new Date(Date.parse(paper.date as string)) === dateString;
+    });
+    setPapers(searchList);
+  };
+
+  const filterPapersByString = (filterParam: string) => {
+    setFilterString(filterParam);
     const searchList = scripts.filter((paper) => {
       return paper.courseCode.toLowerCase().includes(filterParam.toLowerCase());
     });
@@ -77,7 +87,12 @@ const UpdateScripts = ({ scripts, setTab, tab }: UpdateScriptsProps) => {
   // }
   return (
     <>
-      <CustomSearch filter={filter} setFilter={filterPapers} />
+      <CustomSearch
+        filter={filterstring}
+        setFilter={filterPapersByString}
+        filterdate={filterdate}
+        filterPapersByDate={filterPapersByDate}
+      />
       <Tabs onChangeTab={setTab} tab={tab} />
       <Table data={currentItems} columns={columns} checker={checker} />
       <ReactPaginate

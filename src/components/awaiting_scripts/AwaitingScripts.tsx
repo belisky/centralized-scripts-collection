@@ -6,6 +6,8 @@ import ReactPaginate from "react-paginate";
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import CustomSearch from "../custom_search/CustomSearch";
 import Tabs from "../tabs/Tabs";
+import { useAppDispatch } from "../../hooks/reduxHooks";
+import { addIds } from "../../reducers/GlobalIdsReducer";
 
 interface AwaitingScriptsProps {
   scripts: IData[];
@@ -33,6 +35,16 @@ const AwaitingScripts = ({ scripts, setTab, tab }: AwaitingScriptsProps) => {
   const [papers, setPapers] = useState(scripts);
 
   const [filter, setFilter] = useState("");
+  const [filterdate, setFilterDate] = useState(new Date());
+
+  const filterPapersByDate = (dateString: Date) => {
+    setFilterDate(dateString);
+    console.log(dateString);
+    const searchList = scripts.filter((paper) => {
+      return new Date(Date.parse(paper.date as string)) === dateString;
+    });
+    setPapers(searchList);
+  };
   const filterPapers = (filterParam: string) => {
     setFilter(filterParam);
     const searchList = scripts.filter((paper) => {
@@ -57,9 +69,15 @@ const AwaitingScripts = ({ scripts, setTab, tab }: AwaitingScriptsProps) => {
   };
   const showNextButton = currentPage !== pageCount - 1;
   const showPrevButton = currentPage !== 0;
+  const dispatch = useAppDispatch();
   return (
     <>
-      <CustomSearch filter={filter} setFilter={filterPapers} />
+      <CustomSearch
+        filter={filter}
+        setFilter={filterPapers}
+        filterdate={filterdate}
+        filterPapersByDate={filterPapersByDate}
+      />
       <Tabs onChangeTab={setTab} tab={tab} />
       <Table data={currentItems} columns={columns} checker={checker} />
       <ReactPaginate

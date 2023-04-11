@@ -7,6 +7,7 @@ import {
 } from "react-icons/bs";
 import { BiLibrary } from "react-icons/bi";
 import CollectScripts from "../collect_scripts/CollectScripts";
+import { removeIds } from "../../reducers/GlobalIdsReducer";
 
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
 
@@ -16,6 +17,7 @@ interface TabProps {
 }
 
 const Tabs = ({ onChangeTab, tab }: TabProps) => {
+  const dispatch = useAppDispatch();
   const [openscriptCollection, setOpenScriptCollection] = useState(false);
   const openCollectScript = () => {
     setOpenScriptCollection((prev) => !prev);
@@ -23,6 +25,7 @@ const Tabs = ({ onChangeTab, tab }: TabProps) => {
   const envelopes = useAppSelector((state) => state.envelopes.envelopes);
   const updateGlobalEnvelope = () => {
     console.log(envelopes);
+    dispatch(removeIds());
   };
   return (
     <div className="flex flex-col">
