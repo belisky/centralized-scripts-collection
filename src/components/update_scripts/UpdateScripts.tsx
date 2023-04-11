@@ -24,7 +24,7 @@ const columns: IColumnType<IData>[] = [
     title: "Class",
   },
   {
-    key: "numOfEnvelopes",
+    key: "numOfenvelopes",
     title: "#Envelopes",
   },
 ];

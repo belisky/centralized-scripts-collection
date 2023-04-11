@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { IColumnType, IData } from "../../lib/types";
 import TableRowItem from "../table_row_item/TableRowItem";
 import NumberDropDown from "../number_drop_down/NumberDropDown";
+import CollectionChecker from "../collection_checker/CollectionChecker";
 
 interface TableRowProps<IData> {
   data: IData[];
@@ -13,6 +14,7 @@ const TableRow = ({ data, columns, checker }: TableRowProps<IData>) => {
   const [envNum, setEnvNum] = useState(
     data.map((element) => element.numOfEnvelopes)
   );
+  const [check, setCheck] = useState(data.map((element) => element.collected));
 
   return (
     <>
@@ -35,9 +37,10 @@ const TableRow = ({ data, columns, checker }: TableRowProps<IData>) => {
             />
           )}
           {checker === "collect" && (
-            <td className="flex ">
-              <input type="checkbox" />
-            </td>
+            <CollectionChecker
+              id={item._id as string}
+              isChecked={check[itemIndex] as boolean}
+            />
           )}
         </tr>
       ))}

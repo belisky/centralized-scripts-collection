@@ -12,6 +12,7 @@ const GET_SCRIPTS = gql`
       numOfEnvelopes
       collectedDate
       class
+      collected
     }
   }
 `;

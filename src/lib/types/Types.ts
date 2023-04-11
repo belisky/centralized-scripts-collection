@@ -25,4 +25,5 @@ export interface IData {
   collectedDate?: string;
   signatureUrl?: string;
   _id?: string;
+  collected?: boolean;
 }

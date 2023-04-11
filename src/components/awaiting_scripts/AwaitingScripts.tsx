@@ -16,7 +16,7 @@ interface AwaitingScriptsProps {
 const columns: IColumnType<IData>[] = [
   {
     key: "courseCode",
-    title: "Course Code",
+    title: "Course_Code",
   },
   {
     key: "class",
@@ -25,10 +25,6 @@ const columns: IColumnType<IData>[] = [
   {
     key: "numOfEnvelopes",
     title: "#Envelopes",
-  },
-  {
-    key: "collectedBy",
-    title: "Collected By",
   },
 ];
 const checker: string = "collect";

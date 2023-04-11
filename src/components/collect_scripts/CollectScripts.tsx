@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import SignPad from "../sign_pad/SignPad";
+import { uploadToCloudinary } from "../../lib/helper/Helper";
+import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
+import { addSigned } from "../../reducers/GlobalSignReducer";
+import { isDOMComponent } from "react-dom/test-utils";
 
 interface CollectScriptsProps {
   openscriptCollection: boolean;
@@ -10,6 +14,40 @@ const CollectScripts = ({
   openscriptCollection,
   openCollectScript,
 }: CollectScriptsProps) => {
+  const [deliveredby, setDeliveredBy] = useState("");
+  const [collectedby, setCollectedBy] = useState("");
+  const [signature, setSignature] = useState("");
+  const dispatch = useAppDispatch();
+
+  const onChangeDeliveredBy = (e: any) => {
+    const newName: string = e.target.value;
+    setDeliveredBy(newName);
+  };
+
+  const onChangeCollectedBy = (e: any) => {
+    const newName: string = e.target.value;
+    setCollectedBy(newName);
+  };
+  const onChangeSignature = (content: string) => {
+    setSignature(content);
+  };
+
+  const ids = useAppSelector((state) => state.id.ids);
+  const onClickSaveChanges = () => {
+    console.log(ids);
+    openCollectScript();
+    // const signatureUrl=await uploadToCloudinary(signature);
+    for (const id of ids) {
+      const obj = {
+        id,
+        signatureUrl: signature,
+        deliveredBy: deliveredby,
+        collectedBy: collectedby,
+        collectedDate: new Date().toDateString(),
+      };
+      dispatch(addSigned(obj));
+    }
+  };
   return (
     <div
       className={
@@ -18,12 +56,22 @@ const CollectScripts = ({
           : "hidden"
       }
     >
-      <input type="text" placeholder="Collected by" />
-      <input type="text" placeholder="Delivered by" />
-      <SignPad />
+      <input
+        type="text"
+        placeholder="Collected by"
+        value={collectedby}
+        onChange={onChangeCollectedBy}
+      />
+      <input
+        type="text"
+        placeholder="Delivered by"
+        value={deliveredby}
+        onChange={onChangeDeliveredBy}
+      />
+      <SignPad onChangeSignature={onChangeSignature} />
       <button
         className="py-2 px-1 rounded-sm flex bg-green-500 ml-auto text-white"
-        onClick={openCollectScript}
+        onClick={onClickSaveChanges}
       >
         Save changes
       </button>
