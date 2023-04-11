@@ -33,14 +33,14 @@ const CollectScripts = ({
   };
 
   const ids = useAppSelector((state) => state.id.ids);
-  const onClickSaveChanges = () => {
+  const onClickSaveChanges = async () => {
     console.log(ids);
     openCollectScript();
-    // const signatureUrl=await uploadToCloudinary(signature);
+    const signatureUrl = await uploadToCloudinary(signature);
     for (const id of ids) {
       const obj = {
         id,
-        signatureUrl: signature,
+        signatureUrl,
         deliveredBy: deliveredby,
         collectedBy: collectedby,
         collectedDate: new Date().toDateString(),

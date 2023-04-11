@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { UPLOAD_ENVELOPES } from "../../hooks/useUpdateEnvelopes";
 import {
   BsFillClipboard2CheckFill,
   BsTag,
@@ -16,13 +18,19 @@ interface TabProps {
 }
 
 const Tabs = ({ onChangeTab, tab }: TabProps) => {
+  const [updateEnvelopeNumbers] = useMutation(UPLOAD_ENVELOPES);
+
   const [openscriptCollection, setOpenScriptCollection] = useState(false);
   const openCollectScript = () => {
     setOpenScriptCollection((prev) => !prev);
   };
   const envelopes = useAppSelector((state) => state.envelopes.envelopes);
-  const updateGlobalEnvelope = () => {
+  const updateGlobalEnvelope = async () => {
     console.log(envelopes);
+    const envVar = { updateScriptInput: envelopes };
+    updateEnvelopeNumbers({ variables: envVar })
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   };
   return (
     <div className="flex flex-col">

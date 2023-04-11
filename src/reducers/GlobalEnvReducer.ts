@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-const initialState: { envelopes: { id: string; numOfEnv: number }[] } = {
+const initialState: {
+  envelopes: { scriptId: string; numOfEnvelopes: number }[];
+} = {
   envelopes: [],
 };
 // export {};

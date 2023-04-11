@@ -20,7 +20,7 @@ const NumberDropDown = ({ id, numOfEnv }: NumberDropDownProps) => {
           setNum(newNumber);
           console.log(newNumber);
           console.log(num);
-          dispatch(addEnvelope({ id, newNumber }));
+          dispatch(addEnvelope({ scriptId: id, numOfEnvelopes: newNumber }));
         }}
       >
         {[...Array(16)].map((_, i) => (
