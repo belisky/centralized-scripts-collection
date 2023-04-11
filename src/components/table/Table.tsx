@@ -3,13 +3,13 @@ import TableHeader from "../table_header/TableHeader";
 import TableRow from "../table_row/TableRow";
 import { IColumnType, IData } from "../../lib/types";
 
-interface TableProps<T> {
-  data: T[];
-  columns: IColumnType<T>[];
+interface TableProps {
+  data: IData[];
+  columns: IColumnType<IData>[];
   checker?: string;
 }
 
-const Table = ({ data, columns, checker }: TableProps<IData>) => {
+const Table = ({ data, columns, checker }: TableProps) => {
   return (
     <table className="table-auto">
       <thead>

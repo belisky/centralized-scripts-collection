@@ -4,8 +4,8 @@ export interface IScript {
   courseCode: string;
   courseName: string;
   numOfEnvelopes: number;
-  examinerSignatureUrl: string;
-  dateOfCollection: string;
+  signatureUrl: string;
+  collectionDate: string;
   class: string;
 }
 
@@ -21,7 +21,8 @@ export interface IData {
   class: string;
   collectedBy?: string;
   deliveredBy?: string;
-  env?: number;
-  dateCollected?: string;
-  signature?: string;
+  numOfEnvelopes?: number;
+  collectedDate?: string;
+  signatureUrl?: string;
+  _id?: string;
 }

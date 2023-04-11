@@ -2,8 +2,15 @@ import { useQuery, gql } from "@apollo/client";
 
 const GET_SCRIPTS = gql`
   query {
-    getPapers {
+    getAllScripts {
+      _id
+      courseName
       courseCode
+      collectedBy
+      deliveredBy
+      signatureUrl
+      numOfEnvelopes
+      collectedDate
       class
     }
   }

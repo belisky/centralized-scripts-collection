@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { IColumnType, IData } from "../../lib/types";
 import TableRowItem from "../table_row_item/TableRowItem";
+import NumberDropDown from "../number_drop_down/NumberDropDown";
 
 interface TableRowProps<IData> {
   data: IData[];
@@ -9,6 +10,10 @@ interface TableRowProps<IData> {
 }
 
 const TableRow = ({ data, columns, checker }: TableRowProps<IData>) => {
+  const [envNum, setEnvNum] = useState(
+    data.map((element) => element.numOfEnvelopes)
+  );
+
   return (
     <>
       {data.map((item, itemIndex) => (
@@ -24,18 +29,10 @@ const TableRow = ({ data, columns, checker }: TableRowProps<IData>) => {
             />
           ))}
           {checker === "update" && (
-            <td className="flex flex-auto basis-1/4 ml-5">
-              <select
-                name="numOfEnvelopes"
-                className="flex p-1 my-2"
-                // value={numOfEnv}
-                // onChange={e => setNumOfEnv(e.target.value)}
-              >
-                {[...Array(15)].map((_, i) => (
-                  <option value={i + 1}>{i + 1}</option>
-                ))}
-              </select>
-            </td>
+            <NumberDropDown
+              id={item._id as string}
+              numOfEnv={envNum[itemIndex] as number}
+            />
           )}
           {checker === "collect" && (
             <td className="flex ">

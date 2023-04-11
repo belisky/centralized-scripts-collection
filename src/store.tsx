@@ -1,7 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
+import scriptReducer from "./reducers/ScriptReducer";
+import envelopeReducer from "./reducers/GlobalEnvReducer";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    scripts: scriptReducer,
+    envelopes: envelopeReducer,
+  },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

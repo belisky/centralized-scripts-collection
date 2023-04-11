@@ -2,29 +2,18 @@ import React, { useState } from "react";
 import { IColumnType, IData } from "../../lib/types";
 import ReactPaginate from "react-paginate";
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
+import CustomSearch from "../custom_search/CustomSearch";
+import Tabs from "../tabs/Tabs";
 
 import Table from "../table/Table";
 
 interface UpdateScriptsProps {
   scripts: IData[];
+
+  setTab: (num: number) => void;
+  tab: number;
 }
 
-const data: IData[] = [
-  {
-    courseCode: "ME 245",
-    class: "METE 3",
-    collectedBy: "Augustine",
-    deliveredBy: "Nobel",
-    env: 4,
-  },
-  {
-    courseCode: "CENG 291",
-    class: "PETE 2",
-    collectedBy: "Augustine",
-    deliveredBy: "Nobel",
-    env: 4,
-  },
-];
 const columns: IColumnType<IData>[] = [
   {
     key: "courseCode",
@@ -35,20 +24,30 @@ const columns: IColumnType<IData>[] = [
     title: "Class",
   },
   {
-    key: "env",
+    key: "numOfEnvelopes",
     title: "#Envelopes",
   },
 ];
 const checker: string = "update";
 
-const UpdateScripts = ({ scripts }: UpdateScriptsProps) => {
+const UpdateScripts = ({ scripts, setTab, tab }: UpdateScriptsProps) => {
   const [papers, setPapers] = useState(scripts);
+  const [envelopeNumber, setEnvelopeNumber] = useState([
+    { id: "", numOfEnv: 0 },
+  ]);
+
+  // const updateEnvelopeNumbers=(id:number)
+
+  const [filter, setFilter] = useState("");
 
   const filterPapers = (filterParam: string) => {
-    setPapers(
-      scripts.filter((paper) => paper.courseCode.includes(filterParam))
-    );
+    setFilter(filterParam);
+    const searchList = scripts.filter((paper) => {
+      return paper.courseCode.toLowerCase().includes(filterParam.toLowerCase());
+    });
+    setPapers(searchList);
   };
+
   const [itemOffset, setItemOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -78,6 +77,8 @@ const UpdateScripts = ({ scripts }: UpdateScriptsProps) => {
   // }
   return (
     <>
+      <CustomSearch filter={filter} setFilter={filterPapers} />
+      <Tabs onChangeTab={setTab} tab={tab} />
       <Table data={currentItems} columns={columns} checker={checker} />
       <ReactPaginate
         breakLabel={<span className="mr-4">...</span>}

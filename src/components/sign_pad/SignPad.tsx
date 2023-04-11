@@ -13,6 +13,7 @@ const SignPad = () => {
   };
   const handleGenerate = () => {
     setUrl(signRef.current?.getTrimmedCanvas().toDataURL("image/png"));
+    console.log(signRef.current?.getTrimmedCanvas().toDataURL("image/png"));
   };
 
   return (

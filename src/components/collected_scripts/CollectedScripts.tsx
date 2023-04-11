@@ -3,6 +3,8 @@ import Table from "../table/Table";
 import { IColumnType, IData } from "../../lib/types";
 import ReactPaginate from "react-paginate";
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
+import CustomSearch from "../custom_search/CustomSearch";
+import Tabs from "../tabs/Tabs";
 
 const columns: IColumnType<IData>[] = [
   {
@@ -14,7 +16,7 @@ const columns: IColumnType<IData>[] = [
     title: "Class",
   },
   {
-    key: "env",
+    key: "numOfEnvelopes",
     title: "#Envelopes",
   },
   {
@@ -26,26 +28,32 @@ const columns: IColumnType<IData>[] = [
     title: "Delivered By",
   },
   {
-    key: "DateCollected",
+    key: "collectedDate",
     title: "Date Collected",
   },
   {
-    key: "signature",
+    key: "signatureUrl",
     title: "Sign",
   },
 ];
 
 interface CollectedScriptsProps {
   scripts: IData[];
+
+  setTab: (num: number) => void;
+  tab: number;
 }
 
-const CollectedScripts = ({ scripts }: CollectedScriptsProps) => {
+const CollectedScripts = ({ scripts, setTab, tab }: CollectedScriptsProps) => {
   const [papers, setPapers] = useState(scripts);
 
+  const [filter, setFilter] = useState("");
   const filterPapers = (filterParam: string) => {
-    setPapers(
-      scripts.filter((paper) => paper.courseCode.includes(filterParam))
-    );
+    setFilter(filterParam);
+    const searchList = scripts.filter((paper) => {
+      return paper.courseCode.toLowerCase().includes(filterParam.toLowerCase());
+    });
+    setPapers(searchList);
   };
   const [itemOffset, setItemOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -69,6 +77,8 @@ const CollectedScripts = ({ scripts }: CollectedScriptsProps) => {
 
   return (
     <>
+      <CustomSearch filter={filter} setFilter={filterPapers} />
+      <Tabs onChangeTab={setTab} tab={tab} />
       <Table data={currentItems} columns={columns} />
       <ReactPaginate
         breakLabel={<span className="mr-4">...</span>}

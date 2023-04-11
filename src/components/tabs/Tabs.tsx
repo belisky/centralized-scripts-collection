@@ -8,6 +8,8 @@ import {
 import { BiLibrary } from "react-icons/bi";
 import CollectScripts from "../collect_scripts/CollectScripts";
 
+import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
+
 interface TabProps {
   onChangeTab: (props: number) => void;
   tab: number;
@@ -18,11 +20,15 @@ const Tabs = ({ onChangeTab, tab }: TabProps) => {
   const openCollectScript = () => {
     setOpenScriptCollection((prev) => !prev);
   };
+  const envelopes = useAppSelector((state) => state.envelopes.envelopes);
+  const updateGlobalEnvelope = () => {
+    console.log(envelopes);
+  };
   return (
     <div className="flex flex-col">
       <div className="flex flex-col ml-auto flex-auto justify-end ">
         <button
-          onClick={openCollectScript}
+          onClick={tab === 1 ? updateGlobalEnvelope : openCollectScript}
           className="flex-auto mb-5 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded justify-self-end"
         >
           {tab === 1 ? "Update" : "Collect"}
