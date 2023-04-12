@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAppDispatch } from "../../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { addEnvelope } from "../../reducers/GlobalEnvReducer";
 
 interface NumberDropDownProps {
@@ -10,23 +10,54 @@ interface NumberDropDownProps {
 const NumberDropDown = ({ id, numOfEnv }: NumberDropDownProps) => {
   const dispatch = useAppDispatch();
   const [num, setNum] = useState(numOfEnv);
-  return (
-    <td className="flex flex-auto basis-1/4 ml-5 h-10 items-center justify-center ">
-      <select
-        name="numOfEnvelopes"
-        className="flex p-1 my-2 h-10 w-20"
-        onChange={(e) => {
-          const newNumber: any = parseInt(e.target.value);
-          setNum(newNumber);
+  const [stdpresent, setStdPresent] = useState(0);
 
-          dispatch(addEnvelope({ scriptId: id, numOfEnvelopes: newNumber }));
-        }}
-      >
-        {[...Array(16)].map((_, i) => (
-          <option value={i}>{i}</option>
-        ))}
-      </select>
-    </td>
+  const env = useAppSelector((state) => state.envelopes.envelopes);
+  const onChangeStdPresent = (e: any) => {
+    e.preventDefault();
+    setStdPresent(e.target.value);
+    const stdNum = e.target.value;
+    dispatch(
+      addEnvelope({
+        scriptId: id,
+        numOfEnvelopes: num,
+        numOfStudents: stdNum,
+      })
+    );
+  };
+  return (
+    <>
+      <td className="flex flex-auto basis-1/4 mr-15">
+        <input
+          type="number"
+          className="mr-15 flex p-1 my-2 rounded-md"
+          onChange={onChangeStdPresent}
+        />
+      </td>
+
+      <td className="flex flex-auto basis-1/4 ml-25">
+        <select
+          name="numOfEnvelopes"
+          className="flex p-1 my-2"
+          onChange={(e) => {
+            const newNumber: any = parseInt(e.target.value);
+            setNum(newNumber);
+
+            dispatch(
+              addEnvelope({
+                scriptId: id,
+                numOfEnvelopes: newNumber,
+                numOfStudents: stdpresent,
+              })
+            );
+          }}
+        >
+          {[...Array(16)].map((_, i) => (
+            <option value={i}>{i}</option>
+          ))}
+        </select>
+      </td>
+    </>
   );
 };
 

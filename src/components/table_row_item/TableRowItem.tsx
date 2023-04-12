@@ -9,7 +9,7 @@ interface TableRowItemProps<T> {
 
 const TableRowItem = ({ item, column }: TableRowItemProps<IData>) => {
   const value = get(item, column.key);
-  return <td className="flex flex-auto basis-1/4 ml-5">{value}</td>;
+  return <td className="flex flex-auto basis-1/4 ml-10">{value}</td>;
 };
 
 export default TableRowItem;
