@@ -77,10 +77,9 @@ const CollectScripts = ({
       </span>
       <div className="flex wrap">
         {ids.map((id, index) => {
-          console.log(id);
           const sel = allScripts.filter((script) => script._id === id);
           const item = sel[0];
-          console.log(item);
+
           return (
             item && (
               <span key={index} className="m-5 flex">
