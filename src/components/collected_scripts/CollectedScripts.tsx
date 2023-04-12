@@ -48,6 +48,28 @@ const CollectedScripts = ({ scripts, setTab, tab }: CollectedScriptsProps) => {
   const [papers, setPapers] = useState(scripts);
 
   const [filter, setFilter] = useState("");
+  const [filterdate, setFilterDate] = useState(new Date());
+
+  const filterPapersByDate = (dateString: Date) => {
+    setFilterDate(dateString);
+
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+    const formattedDate: string = dateString.toLocaleDateString(
+      "en-US",
+      options
+    );
+
+    const searchList = scripts.filter((paper) => {
+      return Date.parse(paper.date as string) === Date.parse(formattedDate);
+    });
+
+    setPapers(searchList);
+  };
   const filterPapers = (filterParam: string) => {
     setFilter(filterParam);
     const searchList = scripts.filter((paper) => {
@@ -77,7 +99,12 @@ const CollectedScripts = ({ scripts, setTab, tab }: CollectedScriptsProps) => {
 
   return (
     <>
-      <CustomSearch filter={filter} setFilter={filterPapers} />
+      <CustomSearch
+        filter={filter}
+        setFilter={filterPapers}
+        filterdate={filterdate}
+        filterPapersByDate={filterPapersByDate}
+      />
       <Tabs onChangeTab={setTab} tab={tab} />
       <Table data={currentItems} columns={columns} />
       <ReactPaginate

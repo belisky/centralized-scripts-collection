@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SignPad from "../sign_pad/SignPad";
 import { uploadToCloudinary } from "../../lib/helper/Helper";
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
-import { addSigned } from "../../reducers/GlobalSignReducer";
+import { addSigned, removeSigned } from "../../reducers/GlobalSignReducer";
 import { isDOMComponent } from "react-dom/test-utils";
 
 interface CollectScriptsProps {
@@ -36,7 +36,10 @@ const CollectScripts = ({
   const onClickSaveChanges = async () => {
     console.log(ids);
     openCollectScript();
+
     const signatureUrl = await uploadToCloudinary(signature);
+    const signedArr = [];
+
     for (const id of ids) {
       const obj = {
         id,
@@ -45,7 +48,9 @@ const CollectScripts = ({
         collectedBy: collectedby,
         collectedDate: new Date().toDateString(),
       };
-      dispatch(addSigned(obj));
+      signedArr.push(obj);
+      console.log(signedArr);
+      dispatch(removeSigned());
     }
   };
   return (

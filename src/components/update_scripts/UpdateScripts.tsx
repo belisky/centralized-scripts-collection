@@ -32,16 +32,33 @@ const checker: string = "update";
 
 const UpdateScripts = ({ scripts, setTab, tab }: UpdateScriptsProps) => {
   const [papers, setPapers] = useState(scripts);
-  const [envelopeNumber, setEnvelopeNumber] = useState([
-    { id: "", numOfEnv: 0 },
-  ]);
 
-  // const updateEnvelopeNumbers=(id:number)
+  const [filterstring, setFilterString] = useState("");
+  const [filterdate, setFilterDate] = useState(new Date());
 
-  const [filter, setFilter] = useState("");
+  const filterPapersByDate = (dateString: Date) => {
+    setFilterDate(dateString);
+    console.log(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+    const formattedDate: string = dateString.toLocaleDateString(
+      "en-US",
+      options
+    );
 
-  const filterPapers = (filterParam: string) => {
-    setFilter(filterParam);
+    const searchList = scripts.filter((paper) => {
+      return Date.parse(paper.date as string) === Date.parse(formattedDate);
+    });
+
+    setPapers(searchList);
+  };
+
+  const filterPapersByString = (filterParam: string) => {
+    setFilterString(filterParam);
     const searchList = scripts.filter((paper) => {
       return paper.courseCode.toLowerCase().includes(filterParam.toLowerCase());
     });
@@ -68,16 +85,14 @@ const UpdateScripts = ({ scripts, setTab, tab }: UpdateScriptsProps) => {
   const showNextButton = currentPage !== pageCount - 1;
   const showPrevButton = currentPage !== 0;
 
-  // const filterPapersByDate = (filterParam: string) => {
-  //   setPapers(scripts.filter(paper => paper.date.includes(filterParam)))
-  // }
-
-  // const filterPapersBySession = (filterParam: string) => {
-  //   setPapers(scripts.filter(paper => paper.session.includes(filterParam)))
-  // }
   return (
     <>
-      <CustomSearch filter={filter} setFilter={filterPapers} />
+      <CustomSearch
+        filter={filterstring}
+        setFilter={filterPapersByString}
+        filterdate={filterdate}
+        filterPapersByDate={filterPapersByDate}
+      />
       <Tabs onChangeTab={setTab} tab={tab} />
       <Table data={currentItems} columns={columns} checker={checker} />
       <ReactPaginate

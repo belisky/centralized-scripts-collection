@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Table from "../table/Table";
 import { IColumnType, IData } from "../../lib/types";
-
 import ReactPaginate from "react-paginate";
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import CustomSearch from "../custom_search/CustomSearch";
@@ -33,6 +32,28 @@ const AwaitingScripts = ({ scripts, setTab, tab }: AwaitingScriptsProps) => {
   const [papers, setPapers] = useState(scripts);
 
   const [filter, setFilter] = useState("");
+  const [filterdate, setFilterDate] = useState(new Date());
+
+  const filterPapersByDate = (dateString: Date) => {
+    setFilterDate(dateString);
+
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+    const formattedDate: string = dateString.toLocaleDateString(
+      "en-US",
+      options
+    );
+
+    const searchList = scripts.filter((paper) => {
+      return Date.parse(paper.date as string) === Date.parse(formattedDate);
+    });
+
+    setPapers(searchList);
+  };
   const filterPapers = (filterParam: string) => {
     setFilter(filterParam);
     const searchList = scripts.filter((paper) => {
@@ -57,9 +78,15 @@ const AwaitingScripts = ({ scripts, setTab, tab }: AwaitingScriptsProps) => {
   };
   const showNextButton = currentPage !== pageCount - 1;
   const showPrevButton = currentPage !== 0;
+
   return (
     <>
-      <CustomSearch filter={filter} setFilter={filterPapers} />
+      <CustomSearch
+        filter={filter}
+        setFilter={filterPapers}
+        filterdate={filterdate}
+        filterPapersByDate={filterPapersByDate}
+      />
       <Tabs onChangeTab={setTab} tab={tab} />
       <Table data={currentItems} columns={columns} checker={checker} />
       <ReactPaginate
