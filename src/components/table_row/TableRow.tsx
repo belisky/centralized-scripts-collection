@@ -34,12 +34,14 @@ const TableRow = ({ data, columns, checker }: TableRowProps<IData>) => {
             <NumberDropDown
               id={item._id as string}
               numOfEnv={envNum[itemIndex] as number}
+              key={`table-body-${itemIndex}`}
             />
           )}
           {checker === "collect" && (
             <CollectionChecker
               id={item._id as string}
               isChecked={check[itemIndex] as boolean}
+              key={`table-body-${itemIndex}`}
             />
           )}
         </tr>

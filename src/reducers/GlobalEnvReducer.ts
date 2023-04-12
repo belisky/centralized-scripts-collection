@@ -2,7 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 const initialState: {
-  envelopes: { scriptId: string; numOfEnvelopes: number }[];
+  envelopes: {
+    scriptId: string;
+    numOfEnvelopes: number;
+    numOfStudents: number;
+  }[];
 } = {
   envelopes: [],
 };
@@ -13,7 +17,11 @@ export const envelopeSlice = createSlice({
   reducers: {
     addEnvelope: (
       state,
-      action: PayloadAction<{ scriptId: string; numOfEnvelopes: number }>
+      action: PayloadAction<{
+        scriptId: string;
+        numOfEnvelopes: number;
+        numOfStudents: number;
+      }>
     ) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,

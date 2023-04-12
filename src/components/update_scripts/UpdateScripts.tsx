@@ -9,7 +9,6 @@ import Table from "../table/Table";
 
 interface UpdateScriptsProps {
   scripts: IData[];
-
   setTab: (num: number) => void;
   tab: number;
 }
@@ -23,9 +22,10 @@ const columns: IColumnType<IData>[] = [
     key: "class",
     title: "Class",
   },
+
   {
     key: "numOfenvelopes",
-    title: "#Envelopes",
+    title: "#StdPresent/#Envelopes",
   },
 ];
 const checker: string = "update";
@@ -38,7 +38,6 @@ const UpdateScripts = ({ scripts, setTab, tab }: UpdateScriptsProps) => {
 
   const filterPapersByDate = (dateString: Date) => {
     setFilterDate(dateString);
-    console.log(dateString);
     const options: Intl.DateTimeFormatOptions = {
       weekday: "long",
       day: "numeric",
@@ -76,9 +75,7 @@ const UpdateScripts = ({ scripts, setTab, tab }: UpdateScriptsProps) => {
   // Invoke when user click to request another page.
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * 25) % papers.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
+
     setItemOffset(newOffset);
     setCurrentPage(event.selected);
   };

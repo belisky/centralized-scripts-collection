@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
 import { useMutation } from "@apollo/client";
 import { UPLOAD_SIGNATURES } from "../../hooks/useUpdateEnvelopes";
 import { removeIds } from "../../reducers/GlobalIdsReducer";
+import { FaRegTimesCircle } from "react-icons/fa";
 
 interface CollectScriptsProps {
   openscriptCollection: boolean;
@@ -65,6 +66,12 @@ const CollectScripts = ({
           : "hidden"
       }
     >
+      <span className="flex items-center justify-end m-5">
+        <FaRegTimesCircle
+          onClick={openCollectScript}
+          className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+        />
+      </span>
       <input
         type="text"
         placeholder="Collected by"
