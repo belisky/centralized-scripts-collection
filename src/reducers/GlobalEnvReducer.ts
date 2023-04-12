@@ -11,12 +11,23 @@ export const envelopeSlice = createSlice({
   name: "envelopes",
   initialState,
   reducers: {
-    addEnvelope: (state, action: PayloadAction<any>) => {
+    addEnvelope: (
+      state,
+      action: PayloadAction<{ scriptId: string; numOfEnvelopes: number }>
+    ) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      state.envelopes.push(action.payload);
+
+      const unique = state.envelopes.filter(
+        (envelope) => envelope.scriptId !== action.payload.scriptId
+      );
+      unique.push(action.payload);
+      state.envelopes = unique;
+    },
+    removeEnvelope: (state) => {
+      state.envelopes = [];
     },
   },
 });

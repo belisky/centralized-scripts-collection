@@ -5,3 +5,9 @@ export const UPLOAD_ENVELOPES = gql`
     updateScripts(updateScriptInput: $updateScriptInput)
   }
 `;
+
+export const UPLOAD_SIGNATURES = gql`
+  mutation CollectManyScripts($collectedScripts: [CollectScriptInput]) {
+    collectManyScripts(collectedScripts: $collectedScripts)
+  }
+`;

@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import { LegacyRef } from "react";
 import SignatureCanvas from "react-signature-canvas";
+import { useAppDispatch } from "../../hooks/reduxHooks";
+import { removeIds } from "../../reducers/GlobalIdsReducer";
 
 interface SignPadProps {
   onChangeSignature: (sign: string) => void;
@@ -10,10 +12,12 @@ const SignPad = ({ onChangeSignature }: SignPadProps) => {
   const signRef: LegacyRef<SignatureCanvas> = useRef<any>();
 
   const [url, setUrl] = useState<any>();
+  const dispatch = useAppDispatch();
 
   const handleClear = () => {
     signRef.current?.clear();
     setUrl("");
+    dispatch(removeIds);
   };
   const handleGenerate = () => {
     setUrl(signRef.current?.getTrimmedCanvas().toDataURL("image/png"));
@@ -21,8 +25,6 @@ const SignPad = ({ onChangeSignature }: SignPadProps) => {
     if (content) {
       onChangeSignature(content);
     }
-
-    // console.log(imageUrl);
   };
 
   return (

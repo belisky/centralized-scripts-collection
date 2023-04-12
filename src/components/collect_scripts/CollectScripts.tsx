@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import SignPad from "../sign_pad/SignPad";
 import { uploadToCloudinary } from "../../lib/helper/Helper";
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
-import { addSigned, removeSigned } from "../../reducers/GlobalSignReducer";
-import { isDOMComponent } from "react-dom/test-utils";
+import { removeSigned } from "../../reducers/GlobalSignReducer";
+import { useMutation } from "@apollo/client";
+import { UPLOAD_SIGNATURES } from "../../hooks/useUpdateEnvelopes";
 
 interface CollectScriptsProps {
   openscriptCollection: boolean;
@@ -18,7 +19,7 @@ const CollectScripts = ({
   const [collectedby, setCollectedBy] = useState("");
   const [signature, setSignature] = useState("");
   const dispatch = useAppDispatch();
-
+  const [collectManyScripts] = useMutation(UPLOAD_SIGNATURES);
   const onChangeDeliveredBy = (e: any) => {
     const newName: string = e.target.value;
     setDeliveredBy(newName);
@@ -49,9 +50,12 @@ const CollectScripts = ({
         collectedDate: new Date().toDateString(),
       };
       signedArr.push(obj);
-      console.log(signedArr);
-      dispatch(removeSigned());
     }
+    const envVar = { collectManyScripts: signedArr };
+    collectManyScripts({ variables: envVar })
+      .then((data) => alert("success"))
+      .catch((err) => alert(err));
+    dispatch(removeSigned());
   };
   return (
     <div
