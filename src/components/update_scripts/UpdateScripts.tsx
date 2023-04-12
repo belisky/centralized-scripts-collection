@@ -32,11 +32,6 @@ const checker: string = "update";
 
 const UpdateScripts = ({ scripts, setTab, tab }: UpdateScriptsProps) => {
   const [papers, setPapers] = useState(scripts);
-  const [envelopeNumber, setEnvelopeNumber] = useState([
-    { id: "", numOfEnv: 0 },
-  ]);
-
-  // const updateEnvelopeNumbers=(id:number)
 
   const [filterstring, setFilterString] = useState("");
   const [filterdate, setFilterDate] = useState(new Date());
@@ -44,9 +39,21 @@ const UpdateScripts = ({ scripts, setTab, tab }: UpdateScriptsProps) => {
   const filterPapersByDate = (dateString: Date) => {
     setFilterDate(dateString);
     console.log(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+    const formattedDate: string = dateString.toLocaleDateString(
+      "en-US",
+      options
+    );
+
     const searchList = scripts.filter((paper) => {
-      return new Date(Date.parse(paper.date as string)) === dateString;
+      return Date.parse(paper.date as string) === Date.parse(formattedDate);
     });
+
     setPapers(searchList);
   };
 
@@ -78,13 +85,6 @@ const UpdateScripts = ({ scripts, setTab, tab }: UpdateScriptsProps) => {
   const showNextButton = currentPage !== pageCount - 1;
   const showPrevButton = currentPage !== 0;
 
-  // const filterPapersByDate = (filterParam: string) => {
-  //   setPapers(scripts.filter(paper => paper.date.includes(filterParam)))
-  // }
-
-  // const filterPapersBySession = (filterParam: string) => {
-  //   setPapers(scripts.filter(paper => paper.session.includes(filterParam)))
-  // }
   return (
     <>
       <CustomSearch
