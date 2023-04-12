@@ -5,6 +5,8 @@ import ReactPaginate from "react-paginate";
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import CustomSearch from "../custom_search/CustomSearch";
 import Tabs from "../tabs/Tabs";
+import { useAppDispatch } from "../../hooks/reduxHooks";
+import { updateScripts } from "../../reducers/ScriptReducer";
 
 interface AwaitingScriptsProps {
   scripts: IData[];
@@ -29,6 +31,8 @@ const columns: IColumnType<IData>[] = [
 const checker: string = "collect";
 
 const AwaitingScripts = ({ scripts, setTab, tab }: AwaitingScriptsProps) => {
+  const dispatch = useAppDispatch();
+  scripts && dispatch(updateScripts(scripts));
   const [papers, setPapers] = useState(scripts);
 
   const [filter, setFilter] = useState("");

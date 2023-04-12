@@ -2,13 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 const initialState: {
-  ids: string[];
-} = {
-  ids: [],
-};
+  selected: { id: string; details: { courseName: string; code: string } }[];
+} = { selected: [] };
 // export {};
 export const idSlice = createSlice({
-  name: "ids",
+  name: "selected",
   initialState,
   reducers: {
     addIds: (state, action: PayloadAction<any>) => {
@@ -16,14 +14,14 @@ export const idSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      if (state.ids.includes(action.payload)) {
-        state.ids = state.ids.filter((id) => id !== action.payload);
+      if (state.selected.includes(action.payload)) {
+        state.selected.filter((select) => select.id !== action.payload.id);
       } else {
-        state.ids.push(action.payload);
+        state.selected.push(action.payload);
       }
     },
     removeIds: (state) => {
-      state.ids = [];
+      state.selected = [];
     },
   },
 });

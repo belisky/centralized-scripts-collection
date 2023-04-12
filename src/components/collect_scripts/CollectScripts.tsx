@@ -19,6 +19,7 @@ const CollectScripts = ({
   const [deliveredby, setDeliveredBy] = useState("");
   const [collectedby, setCollectedBy] = useState("");
   const [signature, setSignature] = useState("");
+  const [selected, setSelected] = useState([]);
   const dispatch = useAppDispatch();
   const [collectManyScripts] = useMutation(UPLOAD_SIGNATURES);
 
@@ -36,6 +37,8 @@ const CollectScripts = ({
   };
 
   const ids = useAppSelector((state) => state.id.ids);
+  const allScripts = useAppSelector((state) => state.scripts.scripts);
+
   const onClickSaveChanges = async () => {
     openCollectScript();
 
@@ -62,7 +65,7 @@ const CollectScripts = ({
     <div
       className={
         openscriptCollection
-          ? "fixed backdrop-blur-sm border-2 w-8/12 z-40 top-30 bottom-0 left-60 right-80 items-center justify-center rounded-lg border-red-700"
+          ? "fixed backdrop-blur-sm inset-0 border-2 w-8/12 z-40 top-30 bottom-0 left-60 right-80 items-center justify-center rounded-lg border-red-700"
           : "hidden"
       }
     >
@@ -72,7 +75,21 @@ const CollectScripts = ({
           className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
         />
       </span>
-<<<<<<< HEAD
+      <div className="flex wrap">
+        {ids.map((id, index) => {
+          console.log(id);
+          const sel = allScripts.filter((script) => script._id === id);
+          const item = sel[0];
+          console.log(item);
+          return (
+            item && (
+              <span key={index} className="m-5 flex">
+                {item.class}-{item.courseCode}
+              </span>
+            )
+          );
+        })}
+      </div>
       <div className="flex mb-5 ml-10 items-center justify-center border-red-600 border-2">
         <input
           type="text"
@@ -89,20 +106,6 @@ const CollectScripts = ({
           className="py-2"
         />
       </div>
-=======
-      <input
-        type="text"
-        placeholder="Collected by"
-        value={collectedby}
-        onChange={onChangeCollectedBy}
-      />
-      <input
-        type="text"
-        placeholder="Delivered by"
-        value={deliveredby}
-        onChange={onChangeDeliveredBy}
-      />
->>>>>>> feature/students-present
       <SignPad onChangeSignature={onChangeSignature} />
       <button
         className="py-2 px-1 rounded-sm flex bg-green-500 ml-auto text-white"

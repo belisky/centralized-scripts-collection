@@ -23,8 +23,10 @@ const Tabs = ({ onChangeTab, tab }: TabProps) => {
 
   const dispatch = useAppDispatch();
   const [openscriptCollection, setOpenScriptCollection] = useState(false);
+  const ids = useAppSelector((state) => state.id.ids);
   const openCollectScript = () => {
     setOpenScriptCollection((prev) => !prev);
+    console.log(ids)
   };
   const envelopes = useAppSelector((state) => state.envelopes.envelopes);
   const updateGlobalEnvelope = async () => {

@@ -1,11 +1,28 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IData } from "../lib/types";
 
-const initialState: IData[] = [];
+interface IScript {
+  _id: string;
+  courseName: string;
+  courseCode: string;
+  collectedBy: string;
+  deliveredBy: string;
+  signatureUrl: string;
+  numOfEnvelopes: string;
+  collectedDate: string;
+  class: string;
+  collected: string;
+  date: Date;
+}
+
+interface IInitialState {
+  scripts: IScript[];
+}
+
+const initialState: IInitialState = { scripts: [] };
 // export {};
 export const scriptSlice = createSlice({
   name: "scripts",
-  initialState: { scripts: [] },
+  initialState,
   reducers: {
     updateScripts: (state, action: PayloadAction<any>) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
@@ -14,19 +31,11 @@ export const scriptSlice = createSlice({
       // immutable state based off those changes
       state.scripts = action.payload;
     },
-    updateEnvelopeNum: (
-      state,
-      action: PayloadAction<{ index: number; numOfEnv: number }>
-    ) => {
-      const paper: IData = state.scripts[action.payload.index];
-      // "mutate" the object by overwriting a field
-      paper.numOfEnvelopes = action.payload.numOfEnv;
-    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { updateEnvelopeNum, updateScripts } = scriptSlice.actions;
+export const { updateScripts } = scriptSlice.actions;
 
 export default scriptSlice.reducer;
 // export {};
