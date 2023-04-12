@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import SignPad from "../sign_pad/SignPad";
 import { uploadToCloudinary } from "../../lib/helper/Helper";
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
-import { removeSigned } from "../../reducers/GlobalSignReducer";
 import { useMutation } from "@apollo/client";
 import { UPLOAD_SIGNATURES } from "../../hooks/useUpdateEnvelopes";
+import { removeIds } from "../../reducers/GlobalIdsReducer";
 
 interface CollectScriptsProps {
   openscriptCollection: boolean;
@@ -20,6 +20,7 @@ const CollectScripts = ({
   const [signature, setSignature] = useState("");
   const dispatch = useAppDispatch();
   const [collectManyScripts] = useMutation(UPLOAD_SIGNATURES);
+
   const onChangeDeliveredBy = (e: any) => {
     const newName: string = e.target.value;
     setDeliveredBy(newName);
@@ -35,7 +36,6 @@ const CollectScripts = ({
 
   const ids = useAppSelector((state) => state.id.ids);
   const onClickSaveChanges = async () => {
-    console.log(ids);
     openCollectScript();
 
     const signatureUrl = await uploadToCloudinary(signature);
@@ -55,7 +55,7 @@ const CollectScripts = ({
     collectManyScripts({ variables: envVar })
       .then((data) => alert("success"))
       .catch((err) => alert(err));
-    dispatch(removeSigned());
+    dispatch(removeIds());
   };
   return (
     <div

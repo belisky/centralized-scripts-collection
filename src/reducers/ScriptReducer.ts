@@ -1,47 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IData } from "../lib/types";
 
-// // import { useQuery, gql } from "@apollo/client";
-
-// // const GET_SCRIPTS = gql`
-// //   query {
-// //     getPapers {
-// //       courseCode
-// //       class
-// //     }
-// //   }
-// // `;
-// // export {};
-
-// // export const GetScriptsData = () => {
-// //   const { error, data, loading } = useQuery(GET_SCRIPTS);
-// // };
-
-// // // const todosReducer = createReducer([], (builder) => {
-// // //     builder
-// // //       .addCase('ADD_TODO', (state, action) => {
-// // //         // "mutate" the array by calling push()
-// // //         state.push(action.payload)
-// // //       })
-// // //       .addCase('TOGGLE_TODO', (state, action) => {
-// // //         const todo = state[action.payload.index]
-// // //         // "mutate" the object by overwriting a field
-// // //         todo.completed = !todo.completed
-// // //       })
-// // //       .addCase('REMOVE_TODO', (state, action) => {
-// // //         // Can still return an immutably-updated value if we want to
-// // //         return state.filter((todo, i) => i !== action.payload.index)
-// // //       })
-// // //   })
-
-// // export interface CounterState {
-// //   value: number;
-// // }
-
 const initialState: IData[] = [];
 // export {};
 export const scriptSlice = createSlice({
-  name: "script",
+  name: "scripts",
   initialState: { scripts: [] },
   reducers: {
     updateScripts: (state, action: PayloadAction<any>) => {
