@@ -52,10 +52,22 @@ const CollectedScripts = ({ scripts, setTab, tab }: CollectedScriptsProps) => {
 
   const filterPapersByDate = (dateString: Date) => {
     setFilterDate(dateString);
-    console.log(dateString);
+
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+    const formattedDate: string = dateString.toLocaleDateString(
+      "en-US",
+      options
+    );
+
     const searchList = scripts.filter((paper) => {
-      return new Date(Date.parse(paper.date as string)) === dateString;
+      return Date.parse(paper.date as string) === Date.parse(formattedDate);
     });
+
     setPapers(searchList);
   };
   const filterPapers = (filterParam: string) => {
