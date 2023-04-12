@@ -29,9 +29,9 @@ const SignPad = ({ onChangeSignature }: SignPadProps) => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div style={{ border: "2px solid black", width: 300, height: 150 }}>
+      <div style={{ border: "2px solid black", width: 400, height: 180 }}>
         <SignatureCanvas
-          canvasProps={{ width: 300, height: 150, className: "sigCanvas" }}
+          canvasProps={{ width: 400, height: 180, className: "sigCanvas" }}
           ref={signRef}
         />
       </div>
