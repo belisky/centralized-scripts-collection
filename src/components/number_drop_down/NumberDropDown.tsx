@@ -11,15 +11,14 @@ const NumberDropDown = ({ id, numOfEnv }: NumberDropDownProps) => {
   const dispatch = useAppDispatch();
   const [num, setNum] = useState(numOfEnv);
   return (
-    <td className="flex flex-auto basis-1/4 ml-5">
+    <td className="flex flex-auto basis-1/4 ml-5 h-10 items-center justify-center ">
       <select
         name="numOfEnvelopes"
-        className="flex p-1 my-2"
+        className="flex p-1 my-2 h-10 w-20"
         onChange={(e) => {
           const newNumber: any = parseInt(e.target.value);
           setNum(newNumber);
-          console.log(newNumber);
-          console.log(num);
+
           dispatch(addEnvelope({ scriptId: id, numOfEnvelopes: newNumber }));
         }}
       >

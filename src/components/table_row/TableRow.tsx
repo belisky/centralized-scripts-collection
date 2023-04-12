@@ -21,7 +21,7 @@ const TableRow = ({ data, columns, checker }: TableRowProps<IData>) => {
       {data.map((item, itemIndex) => (
         <tr
           key={`table-body-${itemIndex}`}
-          className="flex h-8 text-sm px-5 flex-row flex-auto items-center justify-around w-full even:bg-blue-200 odd:bg-blue-100"
+          className="flex h-12 text-sm px-5 flex-row flex-auto items-center justify-around w-full even:bg-blue-200 odd:bg-blue-100"
         >
           {columns.map((column, columnIndex) => (
             <TableRowItem
