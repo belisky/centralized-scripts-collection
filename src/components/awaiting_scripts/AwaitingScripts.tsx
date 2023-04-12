@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import Table from "../table/Table";
 import { IColumnType, IData } from "../../lib/types";
-
 import ReactPaginate from "react-paginate";
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import CustomSearch from "../custom_search/CustomSearch";
 import Tabs from "../tabs/Tabs";
-import { useAppDispatch } from "../../hooks/reduxHooks";
-import { addIds } from "../../reducers/GlobalIdsReducer";
 
 interface AwaitingScriptsProps {
   scripts: IData[];
@@ -39,10 +36,22 @@ const AwaitingScripts = ({ scripts, setTab, tab }: AwaitingScriptsProps) => {
 
   const filterPapersByDate = (dateString: Date) => {
     setFilterDate(dateString);
-    console.log(dateString);
+
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+    const formattedDate: string = dateString.toLocaleDateString(
+      "en-US",
+      options
+    );
+
     const searchList = scripts.filter((paper) => {
-      return new Date(Date.parse(paper.date as string)) === dateString;
+      return Date.parse(paper.date as string) === Date.parse(formattedDate);
     });
+
     setPapers(searchList);
   };
   const filterPapers = (filterParam: string) => {
@@ -69,7 +78,7 @@ const AwaitingScripts = ({ scripts, setTab, tab }: AwaitingScriptsProps) => {
   };
   const showNextButton = currentPage !== pageCount - 1;
   const showPrevButton = currentPage !== 0;
-  const dispatch = useAppDispatch();
+
   return (
     <>
       <CustomSearch
