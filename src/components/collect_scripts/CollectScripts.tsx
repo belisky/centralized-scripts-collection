@@ -19,7 +19,7 @@ const CollectScripts = ({
   const [deliveredby, setDeliveredBy] = useState("");
   const [collectedby, setCollectedBy] = useState("");
   const [signature, setSignature] = useState("");
-  const [selected, setSelected] = useState([]);
+
   const dispatch = useAppDispatch();
   const [collectManyScripts] = useMutation(UPLOAD_SIGNATURES);
 
@@ -65,7 +65,7 @@ const CollectScripts = ({
     <div
       className={
         openscriptCollection
-          ? "fixed backdrop-blur-sm inset-0 border-2 w-8/12 z-40 top-30 bottom-0 left-60 right-80 items-center justify-center rounded-lg border-red-700"
+          ? "fixed bg-blue-100 inset-0 border-2 w-8/12 z-40 top-30 bottom-0 left-60 right-80 items-center justify-center rounded-lg py-10"
           : "hidden"
       }
     >
@@ -75,39 +75,43 @@ const CollectScripts = ({
           className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
         />
       </span>
-      <div className="flex wrap">
-        {ids.map((id, index) => {
-          const sel = allScripts.filter((script) => script._id === id);
-          const item = sel[0];
-
-          return (
-            item && (
-              <span key={index} className="m-5 flex">
-                {item.class}-{item.courseCode}
-              </span>
-            )
-          );
-        })}
+      <div className="flex flex-wrap">
+        <ul className="list-disc list-inside marker:text-black flex flex-wrap">
+          {ids.map((id, index) => {
+            const sel = allScripts.filter((script) => script._id === id);
+            const item = sel[0];
+            return (
+              item && (
+                <li
+                  key={index}
+                  className="m-1 text-sm font-bold flex list-disc"
+                >
+                  {item.class} {item.courseCode}
+                </li>
+              )
+            );
+          })}
+        </ul>
       </div>
-      <div className="flex mb-5 ml-10 items-center justify-center border-red-600 border-2">
+      <div className="flex mb-5 items-center justify-center">
         <input
           type="text"
           placeholder="Collected by"
           value={collectedby}
           onChange={onChangeCollectedBy}
-          className="py-2 mr-5"
+          className="py-2 pl-2 mr-2 bg-blue-200 text-gray-900 rounded-md border-white w-48"
         />
         <input
           type="text"
           placeholder="Delivered by"
           value={deliveredby}
           onChange={onChangeDeliveredBy}
-          className="py-2"
+          className="py-2 pl-2 ml-2 border-white bg-blue-200 text-gray-900 rounded-md w-48"
         />
       </div>
       <SignPad onChangeSignature={onChangeSignature} />
       <button
-        className="py-2 px-1 rounded-sm flex bg-green-500 ml-auto text-white"
+        className="py-2 px-1 rounded-sm flex bg-green-500 w-full items-center justify-center text-white"
         onClick={onClickSaveChanges}
       >
         Save changes

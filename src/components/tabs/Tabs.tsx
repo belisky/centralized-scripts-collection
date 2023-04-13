@@ -23,10 +23,11 @@ const Tabs = ({ onChangeTab, tab }: TabProps) => {
 
   const dispatch = useAppDispatch();
   const [openscriptCollection, setOpenScriptCollection] = useState(false);
+
   const ids = useAppSelector((state) => state.id.ids);
+
   const openCollectScript = () => {
-    setOpenScriptCollection((prev) => !prev);
-    console.log(ids)
+    ids.length > 0 && setOpenScriptCollection((prev) => !prev);
   };
   const envelopes = useAppSelector((state) => state.envelopes.envelopes);
   const updateGlobalEnvelope = async () => {
@@ -41,7 +42,9 @@ const Tabs = ({ onChangeTab, tab }: TabProps) => {
       <div className="flex flex-col ml-auto flex-auto justify-end ">
         <button
           onClick={tab === 1 ? updateGlobalEnvelope : openCollectScript}
-          className="flex-auto mb-5 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded justify-self-end"
+          className={
+            "flex-auto mb-5 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded justify-self-end"
+          }
         >
           {tab === 1 ? "Update" : "Collect"}
         </button>

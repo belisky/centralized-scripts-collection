@@ -28,29 +28,33 @@ const SignPad = ({ onChangeSignature }: SignPadProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div style={{ border: "2px solid black", width: 400, height: 180 }}>
+    <div className="flex flex-col items-center justify-center z-50 mb-5">
+      <span className="flex rounded-sm ml-30 w-50 h-10">
+        <img className="w-30 h-10 flex ml-auto" src={url} alt="signature" />
+      </span>
+      <div
+        style={{ border: "2px solid black", width: 400, height: 180 }}
+        className="mb-5"
+      >
         <SignatureCanvas
           canvasProps={{ width: 400, height: 180, className: "sigCanvas" }}
           ref={signRef}
         />
       </div>
-      <div className="flex w-2/4">
+      <div className="flex">
         <button
-          className="bg-red-400 text-white w-1/2 py-2 px-1"
+          className="bg-red-400 text-white w-48 rounded-md py-2 px-1 mr-2"
           onClick={handleClear}
         >
           Clear
         </button>
         <button
-          className="bg-green-500 text-white w-1/2 py-2 px-1"
+          className="bg-green-500 text-white w-48 rounded-md py-2 px-1 ml-2"
           onClick={handleGenerate}
         >
           Preview
         </button>
       </div>
-
-      <img className="w-20 h-10 flex" src={url} />
     </div>
   );
 };
