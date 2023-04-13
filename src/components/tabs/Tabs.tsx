@@ -70,7 +70,7 @@ const Tabs = ({ onChangeTab, tab }: TabProps) => {
               : "ml-5   flex cursor-pointer items-center p-2 text-base font-normal dark:hover:text-white rounded-lg dark:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700"
           }
         >
-          <BiLibrary className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-900" />
+          <BiLibrary className="w-6 h-6 mr-2 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-900" />
           <p>Update Scripts</p>
         </span>
         <span
@@ -81,7 +81,7 @@ const Tabs = ({ onChangeTab, tab }: TabProps) => {
               : "ml-5 flex cursor-pointer items-center p-2 text-base font-normal dark:hover:text-white rounded-lg dark:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700"
           }
         >
-          <BsTag className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+          <BsTag className="w-6 h-6 mr-2 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
           <p>Collectable</p>
         </span>
         <span
@@ -92,7 +92,7 @@ const Tabs = ({ onChangeTab, tab }: TabProps) => {
               : "ml-5 flex cursor-pointer items-center p-2 text-base font-normal dark:hover:text-white rounded-lg dark:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700"
           }
         >
-          <BsFillClipboard2CheckFill className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+          <BsFillClipboard2CheckFill className="w-6 h-6 mr-2 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
           <p>Collected</p>
         </span>
       </div>
