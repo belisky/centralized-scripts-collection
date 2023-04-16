@@ -8,21 +8,21 @@ import { store } from "./store";
 import { Provider } from "react-redux";
 
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_SERVER_URI as string,
-  cache: new InMemoryCache(),
+    uri: process.env.REACT_APP_SERVER_URI as string,
+    cache: new InMemoryCache(),
 });
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+    document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <ApolloProvider client={client}>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </ApolloProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <ApolloProvider client={client}>
+            <Provider store={store}>
+                <App />
+            </Provider>
+        </ApolloProvider>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
