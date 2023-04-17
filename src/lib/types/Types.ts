@@ -13,6 +13,7 @@ export interface IScript {
     session: number;
     toPrint: number;
     seen: boolean;
+    rooms: string;
 }
 
 export interface IColumnType<T> {
