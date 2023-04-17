@@ -23,6 +23,7 @@ export default function ScriptTableRow({
             <td>{script.courseName}</td>
             <td>{script.class}</td>
             <td>{script.session}</td>
+            <td>{script.rooms}</td>
             <td>{script.toPrint}</td>
             <td>
                 <input

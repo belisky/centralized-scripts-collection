@@ -41,6 +41,7 @@ export default function SeenScriptsTable({
                         <th>Course Name</th>
                         <th>Class</th>
                         <th>Session</th>
+                        <th>Rooms</th>
                         <th>To Print</th>
                         <th>Seen</th>
                     </tr>
