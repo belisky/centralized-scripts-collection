@@ -15,6 +15,7 @@ export const GET_SCRIPTS = gql`
             collected
             date
             session
+            rooms
             toPrint
             seen
         }
