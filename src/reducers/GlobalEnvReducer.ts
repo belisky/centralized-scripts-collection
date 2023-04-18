@@ -41,7 +41,7 @@ export const envelopeSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addEnvelope } = envelopeSlice.actions;
+export const { addEnvelope, removeEnvelope } = envelopeSlice.actions;
 export const selectEnvelopes = (state: RootState) => state.envelopes.envelopes;
 
 export default envelopeSlice.reducer;

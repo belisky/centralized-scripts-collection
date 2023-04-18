@@ -27,6 +27,10 @@ const columns: IColumnType<IData>[] = [
     key: "numOfEnvelopes",
     title: "#Envelopes",
   },
+  {
+    key: "collect",
+    title: "collect",
+  },
 ];
 const checker: string = "collect";
 

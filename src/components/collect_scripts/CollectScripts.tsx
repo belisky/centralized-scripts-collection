@@ -47,7 +47,7 @@ const CollectScripts = ({
 
     for (const id of ids) {
       const obj = {
-        id,
+        _id: id,
         signatureUrl,
         deliveredBy: deliveredby,
         collectedBy: collectedby,
@@ -55,7 +55,8 @@ const CollectScripts = ({
       };
       signedArr.push(obj);
     }
-    const envVar = { collectManyScripts: signedArr };
+    console.log(signedArr);
+    const envVar = { collectedScripts: signedArr };
     collectManyScripts({ variables: envVar })
       .then((data) => alert("success"))
       .catch((err) => alert(err));
@@ -86,7 +87,7 @@ const CollectScripts = ({
                   key={index}
                   className="m-1 text-sm font-bold flex list-disc"
                 >
-                  {item.class} {item.courseCode}
+                  {item.courseCode} (<em>{item.class}</em>)
                 </li>
               )
             );
