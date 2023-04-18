@@ -10,7 +10,7 @@ li {
 }
 
 .page {
-    padding: 1rem;
+    padding: 2rem 2.5rem;
     display: flex;
     flex-direction: column;
     flex: 1;
