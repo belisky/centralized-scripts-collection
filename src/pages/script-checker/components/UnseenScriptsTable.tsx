@@ -13,23 +13,23 @@ export default function UnseenScriptsTable({
     removeFromUnseen,
 }: ScriptsTableProps) {
     const SCRIPTS = scripts.sort((a, b) => a.session - b.session);
-    const [itemOffset, setItemOffset] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
+    // const [itemOffset, setItemOffset] = useState(0);
+    // const [currentPage, setCurrentPage] = useState(1);
 
-    const endOffset = itemOffset + 8;
+    // const endOffset = itemOffset + 8;
 
-    const currentItems = SCRIPTS.slice(itemOffset, endOffset);
-    const pageCount = Math.ceil(SCRIPTS.length / 8);
+    // const currentItems = SCRIPTS.slice(itemOffset, endOffset);
+    // const pageCount = Math.ceil(SCRIPTS.length / 8);
 
-    // Invoke when user click to request another page.
-    const handlePageClick = (event: any) => {
-        const newOffset = (event.selected * 8) % SCRIPTS.length;
+    // // Invoke when user click to request another page.
+    // const handlePageClick = (event: any) => {
+    //     const newOffset = (event.selected * 8) % SCRIPTS.length;
 
-        setItemOffset(newOffset);
-        setCurrentPage(event.selected);
-    };
-    const showNextButton = currentPage !== pageCount - 1;
-    const showPrevButton = currentPage !== 0;
+    //     setItemOffset(newOffset);
+    //     setCurrentPage(event.selected);
+    // };
+    // const showNextButton = currentPage !== pageCount - 1;
+    // const showPrevButton = currentPage !== 0;
 
     return (
         <>
@@ -46,7 +46,7 @@ export default function UnseenScriptsTable({
                     </tr>
                 </thead>
                 <tbody className="script-checker-table-body">
-                    {currentItems.map((script) => (
+                    {SCRIPTS.map((script) => (
                         <ScriptTableRow
                             script={script}
                             key={`${script.class}-${script.courseCode}`}
@@ -55,7 +55,7 @@ export default function UnseenScriptsTable({
                     ))}
                 </tbody>
             </table>
-            <ReactPaginate
+            {/* <ReactPaginate
                 breakLabel={<span className="mr-4">...</span>}
                 nextLabel={
                     showNextButton ? (
@@ -77,7 +77,7 @@ export default function UnseenScriptsTable({
                 containerClassName="flex items-center justify-center mt-8 mb-4"
                 pageClassName="block border-2 border-gray-200 hover:bg-gray-200 w-10 h-10 flex items-center justify-center rounded-md mr-4"
                 activeClassName="bg-blue-300 text-white"
-            />
+            /> */}
         </>
     );
 }

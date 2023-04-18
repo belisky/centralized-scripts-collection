@@ -8,6 +8,7 @@ import {
     SeenScriptsTable,
     UnseenScriptsTable,
     FilterScriptsByDate,
+    FilterScriptsByCourseCode,
 } from "./components";
 import { useScriptCheckerGetAllScripts } from "../../hooks";
 
@@ -18,6 +19,9 @@ export default function ScriptChecker() {
         loading,
         error,
     } = useScriptCheckerGetAllScripts();
+    console.log(ALLSCRIPTS);
+    const [ALLUNSEEN, setALLUNSEEN] = useState<IScript[]>([]);
+    const [ALLSEEN, setALLSEEN] = useState<IScript[]>([]);
     const [seenScripts, setSeenScripts] = useState<IScript[]>([]);
     const [unseenScripts, setUnseenScripts] = useState<IScript[]>([]);
 
@@ -34,6 +38,16 @@ export default function ScriptChecker() {
                 (scripts) => scripts.date === date && !scripts.seen
             )
         );
+        setALLUNSEEN(
+            ALLSCRIPTS.filter(
+                (scripts) => scripts.date === date && !scripts.seen
+            )
+        );
+        setALLSEEN(
+            ALLSCRIPTS.filter(
+                (scripts) => scripts.date === date && scripts.seen
+            )
+        );
     };
 
     const [selectedTab, setSelectedTab] = useState<
@@ -46,6 +60,20 @@ export default function ScriptChecker() {
     const [scriptsToRemoveFromSeen, setScriptsToRemoveFromSeen] = useState<
         string[]
     >([]);
+
+    const filterScriptsByCourseCode = (filterParam: string) => {
+        if (selectedTab === "seen-scripts") {
+            const filteredScripts = ALLSEEN.filter((script) =>
+                script.courseCode.includes(filterParam.toUpperCase())
+            );
+            setSeenScripts(filteredScripts);
+        } else {
+            const filteredScripts = ALLUNSEEN.filter((script) =>
+                script.courseCode.includes(filterParam.toUpperCase())
+            );
+            setUnseenScripts(filteredScripts);
+        }
+    };
 
     const addToScriptsToRemoveFromUnseen = (scriptID: string) => {
         const found = scriptsToRemoveFromUnseen.find(
@@ -133,7 +161,15 @@ export default function ScriptChecker() {
 
     return (
         <div className="page">
-            <FilterScriptsByDate dates={DATES} filterByDate={filterByDate} />
+            <div className="filter-row">
+                <FilterScriptsByDate
+                    dates={DATES}
+                    filterByDate={filterByDate}
+                />
+                <FilterScriptsByCourseCode
+                    filterByCourseCode={filterScriptsByCourseCode}
+                />
+            </div>
 
             <div className="script-checker-fill-box script-checker-page-container">
                 <div className="script-checker-fill-box-header">

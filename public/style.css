@@ -28,6 +28,13 @@ li {
     font-size: 1.25rem;
 }
 
+.filter-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+}
+
 .script-checker-page-container {
     border-radius: 0.5em;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -153,6 +160,10 @@ li {
 .script-checker-table-body tr:nth-child(odd) {
     background-color: var(--clr-bg-blue-200);
 }   
+
+.script-checker-table-body tr {
+    height: 5rem;
+}
 
 .script-checker-btn-container {
     display: flex;
