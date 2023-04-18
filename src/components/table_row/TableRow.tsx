@@ -21,7 +21,7 @@ const TableRow = ({ data, columns, checker }: TableRowProps<IData>) => {
       {data.map((item, itemIndex) => (
         <tr
           key={`table-body-${itemIndex}`}
-          className="flex h-12 text-sm px-5 flex-row flex-auto items-center justify-around w-full even:bg-blue-200 odd:bg-blue-100"
+          className="flex flex-row h-12 items-center flex-auto justify-around even:bg-blue-200 odd:bg-blue-100"
         >
           {columns.map((column, columnIndex) => (
             <TableRowItem
@@ -30,11 +30,12 @@ const TableRow = ({ data, columns, checker }: TableRowProps<IData>) => {
               column={column}
             />
           ))}
-          {checker === "update" && (
+          {/* {checker === "update" && (
             <NumberDropDown
               id={item._id as string}
               numOfEnv={envNum[itemIndex] as number}
               key={`table-body-${itemIndex}`}
+              item={item}
             />
           )}
           {checker === "collect" && (
@@ -42,8 +43,9 @@ const TableRow = ({ data, columns, checker }: TableRowProps<IData>) => {
               id={item._id as string}
               isChecked={check[itemIndex] as boolean}
               key={`table-body-${itemIndex}`}
+              item={item}
             />
-          )}
+          )} */}
         </tr>
       ))}
     </>

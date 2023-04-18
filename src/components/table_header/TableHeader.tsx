@@ -7,12 +7,28 @@ interface TableHeaderProps {
 
 const TableHeader = ({ columns }: TableHeaderProps) => {
   return (
-    <tr className="flex flex-row h-12 items-center flex-auto justify-around ">
-      {columns.map((column, columnIndex) => (
-        <th key={columnIndex} className="flex flex-auto px-5 basis-1/4">
-          {column.title}
-        </th>
-      ))}
+    <tr className="flex flex-row h-12 items-center flex-auto justify-center">
+      {columns.map((column, columnIndex) => {
+        if (column.title === "collect") {
+          return (
+            <th key={columnIndex} className="hidden">
+              {column.title}
+            </th>
+          );
+        } else if (column.title === "update") {
+          return (
+            <th key={columnIndex} className="hidden">
+              {column.title}
+            </th>
+          );
+        } else {
+          return (
+            <th key={columnIndex} className="flex flex-auto px-5 basis-1/4">
+              {column.title}
+            </th>
+          );
+        }
+      })}
     </tr>
   );
 };

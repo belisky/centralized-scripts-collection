@@ -11,6 +11,7 @@ const GET_SCRIPTS = gql`
       signatureUrl
       numOfEnvelopes
       collectedDate
+      numOfStudents
       class
       collected
       date

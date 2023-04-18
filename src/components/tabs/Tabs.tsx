@@ -9,7 +9,7 @@ import {
 } from "react-icons/bs";
 import { BiLibrary } from "react-icons/bi";
 import CollectScripts from "../collect_scripts/CollectScripts";
-import { removeIds } from "../../reducers/GlobalIdsReducer";
+import { removeEnvelope } from "../../reducers/GlobalEnvReducer";
 
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
 
@@ -31,11 +31,12 @@ const Tabs = ({ onChangeTab, tab }: TabProps) => {
   };
   const envelopes = useAppSelector((state) => state.envelopes.envelopes);
   const updateGlobalEnvelope = async () => {
+    console.log(envelopes);
     const envVar = { updateScriptInput: envelopes };
     updateEnvelopeNumbers({ variables: envVar })
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
-    dispatch(removeIds());
+      .then((data) => console.log("data", data))
+      .catch((err) => console.log("err", err));
+    dispatch(removeEnvelope());
   };
   return (
     <div className="flex flex-col">

@@ -4,6 +4,8 @@ import ReactPaginate from "react-paginate";
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import CustomSearch from "../custom_search/CustomSearch";
 import Tabs from "../tabs/Tabs";
+import { useAppDispatch } from "../../hooks/reduxHooks";
+import { updateScripts } from "../../reducers/ScriptReducer";
 
 import Table from "../table/Table";
 
@@ -27,10 +29,16 @@ const columns: IColumnType<IData>[] = [
     key: "numOfenvelopes",
     title: "#StdPresent/#Envelopes",
   },
+  {
+    key: "update",
+    title: "update",
+  },
 ];
 const checker: string = "update";
 
 const UpdateScripts = ({ scripts, setTab, tab }: UpdateScriptsProps) => {
+  const dispatch = useAppDispatch();
+  scripts && dispatch(updateScripts(scripts));
   const [papers, setPapers] = useState(scripts);
 
   const [filterstring, setFilterString] = useState("");

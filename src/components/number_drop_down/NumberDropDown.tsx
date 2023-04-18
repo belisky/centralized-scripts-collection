@@ -2,58 +2,75 @@ import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { addEnvelope } from "../../reducers/GlobalEnvReducer";
 
+import { IData } from "../../lib/types";
+import get from "lodash/get";
+
 interface NumberDropDownProps {
+  item: IData;
   id: string;
-  numOfEnv: number;
+  numOfEnv?: number;
 }
 
-const NumberDropDown = ({ id, numOfEnv }: NumberDropDownProps) => {
+const NumberDropDown = ({ id, numOfEnv, item }: NumberDropDownProps) => {
   const dispatch = useAppDispatch();
-  const [num, setNum] = useState(numOfEnv);
-  const [stdpresent, setStdPresent] = useState(0);
+  const envs = get(item, "numOfEnvelopes");
+  const envN = envs?.toString();
 
-  const env = useAppSelector((state) => state.envelopes.envelopes);
+  const studentsNumber = get(item, "numOfStudents");
+
+  // console.log(envs);
+  const [numOfEnvelopes, setNumOfEnvelopes] = useState(envN || "");
+  const [numOfStudents, setNumOfStudents] = useState(studentsNumber || "");
+
+  // const env = useAppSelector((state) => state.envelopes.envelopes);
   const onChangeStdPresent = (e: any) => {
     e.preventDefault();
-    setStdPresent(e.target.value);
-    const stdNum = e.target.value;
+    setNumOfStudents(e.target.value);
+    const stdNum = parseInt(e.target.value);
+    // console.log("std", numOfStudents, stdNum, num);
     dispatch(
       addEnvelope({
         scriptId: id,
-        numOfEnvelopes: num,
+        numOfEnvelopes: parseInt(numOfEnvelopes),
         numOfStudents: stdNum,
+      })
+    );
+  };
+  const onChangeEnv = (e: any) => {
+    e.preventDefault();
+    setNumOfEnvelopes(e.target.value);
+    const env = parseInt(e.target.value);
+    // console.log("env", num, stdpresent);
+    dispatch(
+      addEnvelope({
+        scriptId: id,
+        numOfEnvelopes: env,
+        numOfStudents: parseInt(numOfStudents),
       })
     );
   };
   return (
     <>
-      <td className="flex flex-auto basis-1/4 mr-15">
+      <td key={`${item._id}1`} className="flex flex-auto basis-1/4">
         <input
           type="number"
-          className="mr-15 flex p-1 my-2 rounded-md"
+          className="flex p-1 my-2 rounded-md"
           onChange={onChangeStdPresent}
+          value={numOfStudents}
         />
       </td>
 
-      <td className="flex flex-auto basis-1/4 ml-25">
+      <td key={item._id} className="flex flex-auto basis-1/4 ">
         <select
           name="numOfEnvelopes"
           className="flex p-1 my-2"
-          onChange={(e) => {
-            const newNumber: any = parseInt(e.target.value);
-            setNum(newNumber);
-
-            dispatch(
-              addEnvelope({
-                scriptId: id,
-                numOfEnvelopes: newNumber,
-                numOfStudents: stdpresent,
-              })
-            );
-          }}
+          onChange={onChangeEnv}
+          value={numOfEnvelopes}
         >
-          {[...Array(16)].map((_, i) => (
-            <option value={i}>{i}</option>
+          {[...Array(20)].map((_, i) => (
+            <option key={i} value={i}>
+              {i}
+            </option>
           ))}
         </select>
       </td>

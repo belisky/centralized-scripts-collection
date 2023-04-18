@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import { useAppDispatch } from "../../hooks/reduxHooks";
 import { addIds } from "../../reducers/GlobalIdsReducer";
+import { IData } from "../../lib/types";
+import get from "lodash/get";
 
 interface CollectionCheckerProps {
   id: string;
-  isChecked: boolean;
+  isChecked?: boolean;
+  item: IData;
 }
 
-const CollectionChecker = ({ id, isChecked }: CollectionCheckerProps) => {
-  const [isselected, setIsSelected] = useState(isChecked);
+const CollectionChecker = ({ id, isChecked, item }: CollectionCheckerProps) => {
+  const checked = get(item, "collected");
+
+  const [isselected, setIsSelected] = useState(checked);
   const dispatch = useAppDispatch();
   const handleOnClick = () => {
     setIsSelected((prev) => !prev);
@@ -16,7 +21,7 @@ const CollectionChecker = ({ id, isChecked }: CollectionCheckerProps) => {
   };
 
   return (
-    <td className="flex ">
+    <td className="flex mr-5">
       <input
         type="checkbox"
         value="selectScript"
