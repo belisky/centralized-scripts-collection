@@ -38,7 +38,7 @@ const Tabs = ({ onChangeTab, tab }: TabProps) => {
     const envVar = { updateScriptInput: envelopes };
     updateEnvelopeNumbers({ variables: envVar })
       .then((data) =>
-        toast.success("Successfully Updated!", {
+        toast.success("👌 Successfully Updated!", {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -50,7 +50,7 @@ const Tabs = ({ onChangeTab, tab }: TabProps) => {
         })
       )
       .catch((err) =>
-        toast.error("Error!", {
+        toast.error("😲 Error!", {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,

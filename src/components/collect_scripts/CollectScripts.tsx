@@ -6,6 +6,8 @@ import { useMutation } from "@apollo/client";
 import { UPLOAD_SIGNATURES } from "../../hooks/useUpdateEnvelopes";
 import { removeIds } from "../../reducers/GlobalIdsReducer";
 import { FaRegTimesCircle } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface CollectScriptsProps {
   openscriptCollection: boolean;
@@ -58,8 +60,30 @@ const CollectScripts = ({
     console.log(signedArr);
     const envVar = { collectedScripts: signedArr };
     collectManyScripts({ variables: envVar })
-      .then((data) => alert("success"))
-      .catch((err) => alert(err));
+      .then((data) =>
+        toast.success("👌 Successfully Updated!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
+      )
+      .catch((err) =>
+        toast.error("😲 Error!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
+      );
     dispatch(removeIds());
   };
   return (
