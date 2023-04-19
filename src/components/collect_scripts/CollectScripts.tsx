@@ -100,6 +100,7 @@ const CollectScripts = ({
           className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
         />
       </span>
+      <ToastContainer/>
       <div className="flex flex-wrap">
         <ul className="list-disc list-inside marker:text-black flex flex-wrap">
           {ids.map((id, index) => {
