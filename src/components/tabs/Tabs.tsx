@@ -11,6 +11,8 @@ import { BiLibrary } from "react-icons/bi";
 import CollectScripts from "../collect_scripts/CollectScripts";
 import { removeEnvelope } from "../../reducers/GlobalEnvReducer";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
 
 interface TabProps {
@@ -31,11 +33,34 @@ const Tabs = ({ onChangeTab, tab }: TabProps) => {
   };
   const envelopes = useAppSelector((state) => state.envelopes.envelopes);
   const updateGlobalEnvelope = async () => {
-    console.log(envelopes);
+    // console.log(envelopes);
+
     const envVar = { updateScriptInput: envelopes };
     updateEnvelopeNumbers({ variables: envVar })
-      .then((data) => console.log("data", data))
-      .catch((err) => console.log("err", err));
+      .then((data) =>
+        toast.success("Successfully Updated!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
+      )
+      .catch((err) =>
+        toast.error("Error!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
+      );
     dispatch(removeEnvelope());
   };
   return (
@@ -96,6 +121,7 @@ const Tabs = ({ onChangeTab, tab }: TabProps) => {
           <BsFillClipboard2CheckFill className="w-6 h-6 mr-2 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
           <p>Collected</p>
         </span>
+        <ToastContainer />
       </div>
     </div>
   );
