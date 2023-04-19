@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { IColumnType, IData } from "../../lib/types";
 import TableRowItem from "../table_row_item/TableRowItem";
-import NumberDropDown from "../number_drop_down/NumberDropDown";
-import CollectionChecker from "../collection_checker/CollectionChecker";
 
 interface TableRowProps<IData> {
   data: IData[];
@@ -11,11 +9,6 @@ interface TableRowProps<IData> {
 }
 
 const TableRow = ({ data, columns, checker }: TableRowProps<IData>) => {
-  const [envNum, setEnvNum] = useState(
-    data.map((element) => element.numOfEnvelopes)
-  );
-  const [check, setCheck] = useState(data.map((element) => element.collected));
-
   return (
     <>
       {data.map((item, itemIndex) => (
@@ -30,22 +23,6 @@ const TableRow = ({ data, columns, checker }: TableRowProps<IData>) => {
               column={column}
             />
           ))}
-          {/* {checker === "update" && (
-            <NumberDropDown
-              id={item._id as string}
-              numOfEnv={envNum[itemIndex] as number}
-              key={`table-body-${itemIndex}`}
-              item={item}
-            />
-          )}
-          {checker === "collect" && (
-            <CollectionChecker
-              id={item._id as string}
-              isChecked={check[itemIndex] as boolean}
-              key={`table-body-${itemIndex}`}
-              item={item}
-            />
-          )} */}
         </tr>
       ))}
     </>
